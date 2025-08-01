@@ -1,6 +1,6 @@
 # Pet Diagnosis App
 
-This simple application leverages AI to collect sick pet simptom information and delivers a possible diagnosis. The dashboard showcases the results and displays trends. 
+This simple application leverages AI to collect a sick pet's simptom information and delivers a possible diagnosis. The dashboard showcases the results and displays trends. 
 In order for it to properly work, a Google Gemini API key needs to be generated and plugged into the `api_key` variable.
 
 To start your Phoenix server:
