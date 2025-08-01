@@ -11,7 +11,7 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
 This project uses React for front-end developement. The code is inside /client folder. To access the client developement environment run `npm run dev` inside the client directory.
 Now you can visit [`localhost:5173`](http://localhost:5173) from your browser.
 
-To connect the two, the build front-end needs to be copied into /priv/static/webapp. To achieve that, run `npm run build` inside the client directory followed by `mix webapp` from the root of the project.
+To connect the two, the build front-end needs to be copied into /priv/static/webapp. To achieve this, run `npm run build` inside the client directory followed by `mix webapp` from the root of the project.
 
 ## Learn more
 
