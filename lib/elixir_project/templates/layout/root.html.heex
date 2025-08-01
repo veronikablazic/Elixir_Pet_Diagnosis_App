@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title suffix=" · Phoenix Framework">
+      <%= assigns[:page_title] || "MyProject" %>
+    </.live_title>
+
+    <%= if Mix.env() == :dev do %>
+      <script type="module" src="http://localhost:5173/@vite/client"></script>
+      <script type="module" src="http://localhost:5173/src/main.tsx"></script>
+    <% else %>
+      <link rel="stylesheet" href={~p"/assets/main.css"} />
+      <script type="module" src={~p"/assets/main.js"}></script>
+    <% end %>
+  </head>
+  <body class="bg-white antialiased">
+    <%= @inner_content %>
+  </body>
+</html>
