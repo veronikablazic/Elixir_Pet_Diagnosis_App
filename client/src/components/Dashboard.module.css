@@ -4,21 +4,34 @@
         flex: 1;
         flex-wrap: wrap;
         justify-content: flex-start;
+        margin-top: .5rem;
 
         .item {
             align-items: center;
+            background-color: white;
             border-radius: 15px;
             box-shadow: 1px 4px 6px -1px rgb(0 0 0 / 0.1), 1px 2px 4px -2px rgb(0 0 0 / 0.1);
             display: flex;
             flex: 2 2;
+            flex-direction: column;
             justify-content: center;
             margin: 1rem;
             min-width: 300px;
             padding: 2rem;
+        }
 
-            .image {
-                max-height: 400px;
-            }
+        .text-item {
+            align-items: flex-start;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 1px 4px 6px -1px rgb(0 0 0 / 0.1), 1px 2px 4px -2px rgb(0 0 0 / 0.1);
+            display: flex;
+            flex: 2 2;
+            flex-direction: column;
+            gap: .5rem;
+            margin: 1rem;
+            min-width: 300px;
+            padding: 1rem;
         }
     }
 }

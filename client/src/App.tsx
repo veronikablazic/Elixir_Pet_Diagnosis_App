@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { BrowserRouter, Link, Routes, Route } from "react-router-dom";
-import { Typography } from '@mui/material';
 import { Pets as PetsIcon } from '@mui/icons-material';
 
 import Dashboard from './components/Dashboard.tsx';
@@ -23,10 +22,9 @@ const App = () => {
 
   return (
     <BrowserRouter basename="app">
-      <nav className={classes.nav}>
-        <Link to="/"><PetsIcon fontSize='large' /></Link>
-        <Typography variant='h5'>Pet Diagnostics Dashboard</Typography>
-      </nav>
+      <div className={classes.nav}>
+        <Link to="/"><PetsIcon fontSize='medium' /></Link>
+      </div>
       <Routes>
         <Route path="/" element={<Dashboard />} />
       </Routes>

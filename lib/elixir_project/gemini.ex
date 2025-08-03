@@ -2,12 +2,13 @@ require Logger
 
 defmodule ElixirProject.Gemini do
   def get_diagnosis(input_prompt) do
-    api_key = "" # Replace with a Gemini API key
     url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
+
+    Logger.info(Application.get_env(:elixir_project, :gemini_api_key));
 
     headers = [
       {"Content-Type", "application/json"},
-      {"X-goog-api-key", api_key}
+      {"X-goog-api-key", Application.get_env(:elixir_project, :gemini_api_key)}
     ]
 
     body = %{

@@ -1,4 +1,5 @@
 import Config
+import_config("secret.exs")
 
 # Configure your database
 config :elixir_project, ElixirProject.Repo,
@@ -23,7 +24,8 @@ config :elixir_project, ElixirProjectWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "+fJ78EGa2NZmNPWUSmRU8P61znuQJbHLmqWuUb8u8c9rrmaP2v0xUccrTHSV++z3"
+  secret_key_base: "+fJ78EGa2NZmNPWUSmRU8P61znuQJbHLmqWuUb8u8c9rrmaP2v0xUccrTHSV++z3",
+  gemini_api_key: ""
 
 # ## SSL Support
 #

@@ -1,3 +1,6 @@
-:root {
-  width: 100%;
+body {
+  background-color: oklch(0.93 0.034 272.788);
+  margin: 0;
+  overflow-x: hidden;
+  padding: 0;
 }
