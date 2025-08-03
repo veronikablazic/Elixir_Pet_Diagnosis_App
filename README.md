@@ -3,9 +3,9 @@
 This simple application leverages AI to collect a sick pet's simptom information and delivers a possible diagnosis. The dashboard showcases the results and displays trends. 
 In order for it to properly work, a Google Gemini API key needs to be generated. To use it, you can create a config/secret.exs file with the following:
 
-import Config
-config :elixir_project,
-  gemini_api_key: "MY_SECRET_GEMINI_API_KEY"
+`import Config`
+`config :elixir_project,
+  gemini_api_key: "MY_SECRET_GEMINI_API_KEY"`
 
 To start your Phoenix server:
 
