@@ -32,6 +32,10 @@
             margin: 1rem;
             min-width: 300px;
             padding: 1rem;
+            
+            .sub-item {
+                width: 100%;
+            }
         }
     }
 }

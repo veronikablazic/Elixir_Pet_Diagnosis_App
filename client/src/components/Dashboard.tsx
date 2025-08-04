@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useState } from 'react';
-import { Button, CircularProgress, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, LinearProgress, TextField, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, LinearProgress, TextField, Typography } from '@mui/material';
 import { PieChart } from '@mui/x-charts';
+import { Channel, Socket } from 'phoenix';
 
 import classes from './Dashboard.module.css';
 
@@ -23,10 +24,48 @@ const Dashboard = () => {
     const [diagnosisResult, setDiagnosisResult] = useState<string>('');
     const [allData, setAllData] = useState<dataEntry[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+    const [channel, setChannel] = useState<Channel>();
+    const [dataOutOfDate, setDataOutOfDate] = useState<boolean>(false);
+    const [sessionId, setSessionId] = useState<string>('');
 
     useEffect(() => {
         getDiagnosisDistribution();
+        setSessionId(crypto.randomUUID());
     }, []);
+
+    useEffect(() => {
+        const socket = new Socket('ws://localhost:4000/socket');
+        socket.connect();
+
+        const newChannel = socket.channel('data:lobby');
+        setChannel(newChannel);
+
+        return () => {
+            socket.disconnect();
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!channel) {
+            return;
+        }
+
+        channel.on('new_msg', (payload) => {
+            setDataOutOfDate(payload.sessionId !== sessionId);
+        });
+
+        channel.join()
+            .receive('ok', (resp) => {
+                console.log('Successfully joined the channel', resp);
+            })
+            .receive('error', (resp) => {
+                console.error('Unable to join the channel', resp);
+            });
+
+        return () => {
+            channel.leave();
+        };
+    }, [channel]);
 
     const onSubmit = async (dialogText: string): Promise<void> => {
         try {
@@ -46,9 +85,14 @@ const Dashboard = () => {
             const { diagnosis_result } = await response.json();
             setDiagnosisResult(diagnosis_result);
             await getDiagnosisDistribution();
+
+            if(channel) {
+                channel.push('new_msg', {
+                    body: 'change made',
+                    sessionId: sessionId
+                });
+            }
         } catch (error) {
-            await new Promise(resolve => setTimeout(resolve, 3000));
-            setDiagnosisResult('common cold');
             console.error(error);
         } finally {
             setLoading(false);
@@ -169,13 +213,18 @@ const Dashboard = () => {
                                     {allData[allData.length - 1]?.input || 'Random input.'}
                                 </Typography>
                             </div>
-                            <div>
+                            <div className={classes['sub-item']}>
                                 <Typography fontWeight={700}>
                                     Diagnosis:
                                 </Typography>
                                 <Typography>
                                     {allData[allData.length - 1]?.diagnosis || 'Common cold.'}
                                 </Typography>
+                                { dataOutOfDate && 
+                                    <Alert severity='warning'>
+                                        Out of Date
+                                    </Alert>
+                                }
                             </div>
                         </Fragment> 
                     }
